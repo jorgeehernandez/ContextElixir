@@ -1,5 +1,6 @@
-defmodule ContextElixir.ContextMonitoringImplOne do
+defmodule ContextMonitoring_implTwo do
   @moduledoc false
+
 
   use GenServer
 
@@ -8,7 +9,7 @@ defmodule ContextElixir.ContextMonitoringImplOne do
   end
 
   def init(_opts) do
-    IO.puts "Init context monitoring one"
+    IO.puts "Init context monitoring two"
     monitor()
     {:ok, %{}}
   end
@@ -33,9 +34,9 @@ defmodule ContextElixir.ContextMonitoringImplOne do
     #monitoring rules
     random_number = :rand.uniform(20)
     if random_number > 10 do
-      ContextElixir.ContextSupervisor.activate_on_child({[ContextElixir.VariationOne, ContextElixir.VariationTwo], "ContextAgent"})
+      ContextElixir.ContextSupervisor.activate_on_child({[ContextElixir.ExecuteVariationOne, ContextElixir.ExecuteVariationTwo], "ContextLoop"})
     else
-      ContextElixir.ContextSupervisor.activate_on_child({[ContextElixir.VariationTwo], "ContextAgent"})
+      ContextElixir.ContextSupervisor.activate_on_child({[ContextElixir.ExecuteVariationOne], "ContextLoop"})
     end
 
     #end of monitoring rules
@@ -43,6 +44,5 @@ defmodule ContextElixir.ContextMonitoringImplOne do
     monitor()
     {:noreply, state}
   end
-
 
 end
