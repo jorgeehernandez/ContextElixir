@@ -1,0 +1,24 @@
+
+ c "lib/context_agent_impl.ex" 
+ c "lib/variation_two.ex"
+ c "lib/variation_one.ex"
+
+
+ {:ok, pid} = ContextElixir.ContextAgentImpl.start_link([])
+ContextElixir.ContextAgentImpl.activate([ContextElixir.VariationOne, ContextElixir.VariationTwo])
+
+
+
+Test function on unknow context
+ContextElixir.ContextAgentImpl.execute_context_function(:custom_function, ["menssage"])  
+ContextElixir.ContextAgentImpl.execute_context_function(:custom_function, ["menssage", "othermessage"]) 
+
+
+Test know function
+ContextElixir.ContextAgentImpl.message("message to be printed")
+
+
+Supervisor
+ContextElixir.ContextSupervisor.start_link([])
+ContextElixir.ContextSupervisor.activate_on_child({[ContextElixir.VariationOne, ContextElixir.VariationTwo], "ContextAgent"})
+ContextElixir.ContextSupervisor.activate_on_child({[ContextElixir.ExecuteVariationOne, ContextElixir.ExecuteVariationTwo], "ContextLoop"})
